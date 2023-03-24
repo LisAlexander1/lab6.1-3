@@ -1,0 +1,46 @@
+﻿<Window x:Class="lab6.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab6"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="500">
+    <TabControl>
+        <TabItem Header="Динамические массивы">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ListBox Name="OutputList" Grid.ColumnSpan="2">
+                </ListBox>
+                <Button Grid.Row="2" Click="Delete">DELETE</Button>
+                <Button Grid.Row="2" Click="Clear" Grid.Column="1">CLEAR</Button>
+                <StackPanel Grid.Column="2" Grid.RowSpan="3">
+                    <Label>Введите целое число</Label>
+                    <TextBox Name="TextBoxInput"
+                             PreviewTextInput="TextBox_KeyDown"
+                             PreviewKeyDown="TextBox_PreviewKeyDown"
+                             TextWrapping="Wrap"/>
+                    <Label Name="ErrorOut" Content="" Foreground="red" FontWeight="Bold"/>
+                    <Button Click="Add">ADD</Button>
+                </StackPanel>
+                <Label Grid.Row="1">Кол-во нечетных чисел:</Label>
+                <Label Name="Counter" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right">x</Label>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Стеки и очереди">
+            
+        </TabItem>
+        <TabItem Header="Списки">
+            
+        </TabItem>
+    </TabControl>
+</Window>
