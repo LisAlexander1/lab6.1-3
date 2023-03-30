@@ -7,4 +7,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Resource Include="fonts\PEUGEOTNEWCYRILLIC-BOLD.TTF" />
+    <Resource Include="fonts\PEUGEOTNEWCYRILLIC-EXTRALIGHT.TTF" />
+    <Resource Include="fonts\PEUGEOTNEWCYRILLIC-LIGHT.TTF" />
+    <Resource Include="fonts\PEUGEOTNEWCYRILLIC-LIGHTITALIC.TTF" />
+    <Resource Include="fonts\PEUGEOTNEWCYRILLIC-REGULAR.TTF" />
+  </ItemGroup>
+
 </Project>

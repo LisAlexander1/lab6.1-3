@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using lab6.Stack;
+using lab6.TList;
 
 namespace lab6
 {
@@ -22,18 +24,28 @@ namespace lab6
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ArrayList list = new ArrayList();
+        private ArrayList list = new();
+        private SinglyStack<string> stack = new();
+        private TList<string> doublyList = new();
 
         public MainWindow()
         {
             InitializeComponent();
+            OutputList.ItemsSource = list;
+            stack.Push("Students");
+            stack.Push("of");
+            stack.Push("the");
+            stack.Push("group");
+            stack.Push("TE");
+            stack.Push("3");
+            UpdateStack();
 
         }
 
         private void TextBox_KeyDown(object sender, TextCompositionEventArgs e)
         {
             int val;
-            if (!int.TryParse(e.Text,out val) && !(e.Text.Equals("-") && TextBoxInput.Text.Length == 0) && e.Text[0] !=  13 && e.Text[0] != 44)
+            if (!int.TryParse(e.Text,out val) && !(e.Text.Equals("-")) && e.Text[0] !=  13 && e.Text[0] != 44)
             {
                 e.Handled = true;
             }
@@ -52,53 +64,114 @@ namespace lab6
             if (OutputList.SelectedIndex >= 0)
             {
                 list.RemoveAt(OutputList.SelectedIndex);
-
-                Update();
+                OutputList.Items.Refresh();
+                RefreshCounter();
             }
         }
 
-        private void Update()
+        private void RefreshCounter()
         {
-            OutputList.Items.Clear();
+            int counter = 0;
             foreach (var item in list)
+            {
+                counter += Math.Abs((int)item % 2);
+            }
+            Counter.Content = counter;
+        }
+
+        private void UpdateStack()
+        {
+            OutputStack.Items.Clear();
+            foreach (var item in stack)
             {
                 var listItem = new ListBoxItem();
                 listItem.Content = item;
-                OutputList.Items.Add(listItem);
+                OutputStack.Items.Add(listItem);
+            }
+        }
+
+        private void UpdateTList()
+        {
+            OutputTList.Items.Clear();
+            foreach (var item in doublyList)
+            {
+                var listItem = new ListBoxItem();
+                listItem.Content = item;
+                OutputTList.Items.Add(listItem);
             }
         }
 
         private void Add(object sender, RoutedEventArgs e)
         {
+            string error = "";
             if (!string.IsNullOrEmpty(TextBoxInput.Text))
             {
-                int input;
-                bool success = int.TryParse(TextBoxInput.Text, out input);
-                if (success && input % 10 != 0)
+                string[] inputSringArray = TextBoxInput.Text.Split(',');
+                for (int i = 0; i < inputSringArray.Length; i++)
                 {
-                    ErrorOut.Content = "";
-                    list.Add(input);
-                    TextBoxInput.Clear();
-                    Update();
-                } else if (success && input % 10 == 0)
-                {
-                    ErrorOut.Content = "Число не должно быть кратно 10";
+                    int value;
+                    bool success = int.TryParse(inputSringArray[i],out value);
+                    if (success && value % 10 != 0)
+                    {
+                        list.Add(value);
+                        
+                    } else if (!success)
+                    {
+                        error += $"Не получилось получить значение: {inputSringArray[i]}.\n";
+                    }
                 }
-                else if (!success)
-                {
-                    ErrorOut.Content = "Невозможно получить число";
-
-                }
+                ErrorOut.Text = error;
+                TextBoxInput.Clear();
+                OutputList.Items.Refresh();
+                RefreshCounter();
             } else
             {
-                ErrorOut.Content = "Введите число";
+                ErrorOut.Text = "Введите числа";
             }
         }
 
         private void Clear(object sender, RoutedEventArgs e)
         {
             list.Clear();
-            Update();
+            OutputList.Items.Refresh();
+            RefreshCounter();
+        }
+
+        private void PushToStack(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TextBoxStackInput.Text))
+            {
+                stack.Push(TextBoxStackInput.Text);
+                UpdateStack();
+                TextBoxStackInput.Clear();
+            }
+        }
+
+        private void PopToStack(object sender, RoutedEventArgs e)
+        {
+            stack.Pop();
+            UpdateStack();
+        }
+
+        private void InsertToTList(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TextBoxTListInput.Text))
+            {
+                doublyList.InsertBefore(TextBoxTListInput.Text);
+                UpdateTList();
+                TextBoxStackInput.Clear();
+            }
+        }
+
+        private void RemoveFromTList(object sender, RoutedEventArgs e)
+        {
+            if (OutputTList.SelectedIndex >= 0)
+            {
+                var listItem = OutputTList.SelectedItem as ListBoxItem;
+                
+                doublyList.Remove(listItem.Content.ToString());
+                UpdateTList();
+            }
         }
     }
 }

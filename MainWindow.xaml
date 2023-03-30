@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lab6"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="500">
+        Title="MainWindow" Height="500" Width="500" MinWidth="430" MinHeight="200" Background="#FF242424"
+        FontFamily="#Peugeot New Cyrillic"
+        >
     <TabControl>
         <TabItem Header="Динамические массивы">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="*" MinWidth="120"/>
+                    <ColumnDefinition Width="*" MinWidth="120"/>
+                    <ColumnDefinition Width="2*" MinWidth="170"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -24,23 +26,62 @@
                 <Button Grid.Row="2" Click="Delete">DELETE</Button>
                 <Button Grid.Row="2" Click="Clear" Grid.Column="1">CLEAR</Button>
                 <StackPanel Grid.Column="2" Grid.RowSpan="3">
-                    <Label>Введите целое число</Label>
+                    <Label>Введите целые числа</Label>
                     <TextBox Name="TextBoxInput"
                              PreviewTextInput="TextBox_KeyDown"
                              PreviewKeyDown="TextBox_PreviewKeyDown"
                              TextWrapping="Wrap"/>
-                    <Label Name="ErrorOut" Content="" Foreground="red" FontWeight="Bold"/>
-                    <Button Click="Add">ADD</Button>
+                    <Button Click="Add" Height="30">ADD</Button>
+                    <TextBlock Name="ErrorOut"
+                           Text=" "
+                           FontWeight="Bold"
+                           Foreground="DarkRed"
+                           TextWrapping="Wrap"
+                           />
                 </StackPanel>
-                <Label Grid.Row="1">Кол-во нечетных чисел:</Label>
+                <Label Grid.Row="1" Grid.ColumnSpan="2">Кол-во нечетных чисел:</Label>
                 <Label Name="Counter" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Right">x</Label>
             </Grid>
         </TabItem>
         <TabItem Header="Стеки и очереди">
-            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="240"/>
+                    <ColumnDefinition Width="*" MinWidth="170"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ListBox Name="OutputStack">
+                </ListBox>
+                <Button Grid.Row="1" Click="PopToStack">POP</Button>
+                <StackPanel Grid.Column="1" Grid.RowSpan="2">
+                    <Label>Введите строку</Label>
+                    <TextBox Name="TextBoxStackInput"/>
+                    <Button Click="PushToStack" Height="30">PUSH</Button>
+                </StackPanel>
+            </Grid>
         </TabItem>
         <TabItem Header="Списки">
-            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="240"/>
+                    <ColumnDefinition Width="*" MinWidth="170"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <ListBox Name="OutputTList">
+                </ListBox>
+                <StackPanel Grid.Column="1" Grid.RowSpan="2">
+                    <Label>Введите строку</Label>
+                    <TextBox Name="TextBoxTListInput"/>
+                    <Button Click="InsertToTList" Height="30">InsertBefore</Button>
+                </StackPanel>
+                <Button Grid.Row="1" Click="RemoveFromTList">Remove</Button>
+            </Grid>
         </TabItem>
     </TabControl>
 </Window>
