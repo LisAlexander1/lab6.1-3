@@ -11,6 +11,7 @@ namespace lab6.Stack
     {
         Node<T>? head;
         Node<T>? tail;
+        public int Count = 0;
 
         public SinglyStack()
         {
@@ -27,6 +28,7 @@ namespace lab6.Stack
             {
                 node.Previous = tail;
             }
+            Count++;
             tail = node;
         }
 
@@ -39,8 +41,17 @@ namespace lab6.Stack
             tail = tail.Previous;
             if (tail == null)
                 head = null;
-        
+            
+            Count--;
             return node.Value;
+        }
+
+        public void Fill(T[] array)
+        {
+            foreach (var item in array)
+            {
+                Push(item);
+            }
         }
 
         public IEnumerator<T> GetEnumerator()
