@@ -27,6 +27,8 @@ namespace lab6
         private ArrayList list = new();
         private SinglyStack<string> stack = new();
         private TList<string> doublyList = new();
+        Random r = new();
+
 
         public MainWindow()
         {
@@ -172,6 +174,16 @@ namespace lab6
                 doublyList.Remove(listItem.Content.ToString());
                 UpdateTList();
             }
+        }
+
+        private void FillList(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < r.Next(1,10); i++)
+            {
+                var value = r.Next(0, 100);
+                list.Add(value % 10 != 0 ? value : value-1);
+            }
+            OutputList.Items.Refresh();
         }
     }
 }

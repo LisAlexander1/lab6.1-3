@@ -46,14 +46,6 @@ namespace lab6.Stack
             return node.Value;
         }
 
-        public void Fill(T[] array)
-        {
-            foreach (var item in array)
-            {
-                Push(item);
-            }
-        }
-
         public IEnumerator<T> GetEnumerator()
         {
             Node<T>? current = tail;

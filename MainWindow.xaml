@@ -32,6 +32,7 @@
                              PreviewKeyDown="TextBox_PreviewKeyDown"
                              TextWrapping="Wrap"/>
                     <Button Click="Add" Height="30">ADD</Button>
+                    <Button Click="FillList" Height="30">FILL</Button>
                     <TextBlock Name="ErrorOut"
                            Text=" "
                            FontWeight="Bold"
